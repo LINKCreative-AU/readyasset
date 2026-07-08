@@ -260,6 +260,14 @@ footer .socials a:hover svg{fill:#fff}
 footer .legal{border-top:1px solid #24374F;padding-top:22px;font-size:12.5px;line-height:1.7;color:#63788F}
 footer .legal a{display:inline;color:#8FA2BC;text-decoration:underline;padding:0}
 
+/* ---------- ready band (slogan CTA) ---------- */
+.ready-band{background:var(--night);padding:84px 0;text-align:center;position:relative;overflow:hidden}
+.ready-band::after{content:"";position:absolute;top:-60%;left:50%;transform:translateX(-50%);width:80%;height:160%;background:radial-gradient(closest-side,color-mix(in srgb,var(--accent) 30%, transparent),transparent);transition:background .4s;pointer-events:none}
+.ready-band h2{color:#fff;font-size:clamp(36px,5.5vw,64px);margin-bottom:10px;position:relative;z-index:1}
+.ready-band h2 em{font-style:italic;color:var(--accent);filter:brightness(1.5);transition:color .3s}
+.ready-band p{color:#94A3BC;font-size:17px;margin-bottom:28px;position:relative;z-index:1}
+.ready-band .btn{position:relative;z-index:1}
+
 /* count-up + reveal */
 .reveal{opacity:0;transform:translateY(18px);transition:opacity .5s,transform .5s}
 .reveal.in{opacity:1;transform:none}
@@ -320,7 +328,7 @@ ${GTM_BODY}`;
 function header_(ctaUrl) {
   return `<header>
   <div class="wrap nav">
-    <a class="logo" href="/" aria-label="Ready Asset Finance — home"><img src="/assets/logo-dark.png" alt="Ready Asset Finance" width="184" height="50"><small>READY WHEN YOU ARE</small></a>
+    <a class="logo" href="/" aria-label="Ready Asset Finance — home"><img src="/assets/logo-dark.png" alt="Ready Asset Finance" width="184" height="50"></a>
     <div class="nav-right">
       <a class="nav-phone" href="${SITE.phoneHref}">${SITE.phone}</a>
       <a class="btn btn-accent" id="navCta" href="${ctaUrl}" target="_blank" rel="noopener">Quick quote &rarr;</a>
@@ -378,6 +386,16 @@ function calculator({ word, url, amt, dep, term, amtMax }) {
 </section>`;
 }
 
+function readyBand(url) {
+  return `<div class="ready-band">
+  <div class="wrap">
+    <h2>Ready when <em>you are</em>.</h2>
+    <p>One quick quote. 45+ lenders compete. Same-day answer, no credit score impact.</p>
+    <a class="btn btn-accent" id="bandCta" href="${url}" target="_blank" rel="noopener">Get my quick quote &rarr;</a>
+  </div>
+</div>`;
+}
+
 function callback() {
   return `<section id="callback">
   <div class="wrap callback">
@@ -404,7 +422,7 @@ function footer_(currentPath) {
   <div class="wrap">
     <div class="cols">
       <div>
-        <a class="logo" href="/" aria-label="Ready Asset Finance — home"><img src="/assets/logo-white.png" alt="Ready Asset Finance" width="184" height="50" loading="lazy"><small>READY WHEN YOU ARE</small></a>
+        <a class="logo" href="/" aria-label="Ready Asset Finance — home"><img src="/assets/logo-white.png" alt="Ready Asset Finance" width="184" height="50" loading="lazy"></a>
         <p style="margin-top:14px;max-width:38ch">Brisbane-based finance brokers putting 45+ lenders to work on your next car, caravan, boat, bike or business move.</p>
         <div class="socials">
           <a href="${SITE.socials.facebook}" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M13.5 21v-8.3h2.8l.4-3.2h-3.2V7.4c0-.9.3-1.6 1.6-1.6h1.7V2.9c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3v2.4H7.3v3.2h2.8V21h3.4z"/></svg></a>
@@ -503,6 +521,7 @@ function setAsset(i,manual){
   document.getElementById('heroCta').href=c.url;
   document.getElementById('navCta').href=c.url;
   const cc=document.getElementById('calcCta');if(cc)cc.href=c.url;
+  const bc=document.getElementById('bandCta');if(bc)bc.href=c.url;
   const art=document.getElementById('assetArt');
   art.style.opacity=0;
   setTimeout(()=>{art.innerHTML=ART[c.k];art.style.opacity=1;},180);
@@ -771,6 +790,8 @@ ${HOME.faqs.map(f => `<details><summary>${esc(f.q)}</summary><p>${f.a}</p></deta
 
 ${callback()}
 
+${readyBand(c0.url)}
+
 ${footer_('')}
 
 <script>${js}</script>
@@ -855,6 +876,8 @@ ${faqs}
 ${relatedSection(cat, extra)}
 
 ${callback()}
+
+${readyBand(cat.url)}
 
 ${footer_(cat.path)}
 
