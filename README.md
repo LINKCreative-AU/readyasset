@@ -16,7 +16,7 @@ other LINK client sites.
 [build/build.mjs](build/build.mjs) (template/CSS/JS), then:
 
 ```
-npm run build
+npm run generate
 ```
 
 That regenerates `index.html`, the 8 category pages, both legal pages and `sitemap.xml`.
