@@ -19,6 +19,7 @@
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TQR85VQG');</script>
 <!-- End Google Tag Manager -->
 <script type="application/ld+json">{"@context":"https://schema.org","@type":["FinancialService","Organization"],"@id":"https://readyassetfinance.com.au/#organization","name":"Ready Asset Finance","legalName":"Rypro Pty Ltd","url":"https://readyassetfinance.com.au/","logo":"https://readyassetfinance.com.au/assets/logo-white.png","image":"https://readyassetfinance.com.au/assets/og.jpg","telephone":"+61 7 3059 9853","identifier":[{"@type":"PropertyValue","propertyID":"ABN","value":"38 633 895 066"},{"@type":"PropertyValue","propertyID":"Authorised Credit Representative","value":"546989"}],"description":"Brisbane-based asset finance brokers. Authorised Credit Representative #546989 of AFAS Group Pty Ltd, Australian Credit Licence #414426. One application puts 45+ lenders to work on car, caravan, boat, motorbike, personal, business, commercial and leisure finance.","address":{"@type":"PostalAddress","addressLocality":"Brisbane","addressRegion":"QLD","addressCountry":"AU"},"areaServed":{"@type":"Country","name":"Australia"},"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"09:00","closes":"17:30"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","description":"By appointment"}],"sameAs":["https://www.facebook.com/profile.php?id=61561346886462","https://www.instagram.com/readyassetfinance/","https://www.linkedin.com/company/ready-asset-finance/"]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is Ready Asset Finance a lender?","acceptedAnswer":{"@type":"Answer","text":"No — we’re a licensed finance brokerage (Authorised Credit Representative #546989 of AFAS Group Pty Ltd, Australian Credit Licence #414426). We take one application to a panel of 45+ lenders, they compete, and you choose from your best options."}},{"@type":"Question","name":"Does getting a quote affect my credit score?","acceptedAnswer":{"@type":"Answer","text":"No. The quick quote is assessed against the lender panel without a credit enquiry. Your file is only touched when you pick a lender and formally apply — and we flag that moment clearly."}},{"@type":"Question","name":"How fast is same-day pre-approval?","acceptedAnswer":{"@type":"Answer","text":"Submit a quick quote during business hours and pre-approval typically lands the same day, often within hours. Settlement usually follows 24–48 hours after your documents are in."}},{"@type":"Question","name":"What can I finance through Ready Asset Finance?","acceptedAnswer":{"@type":"Answer","text":"Cars, caravans, boats, motorbikes, jet skis and leisure assets, personal loans, business loans and commercial equipment — new or used, from a dealer, auction or private seller."}},{"@type":"Question","name":"Do you only work with Brisbane clients?","acceptedAnswer":{"@type":"Answer","text":"No — we’re Brisbane-based with clients Australia-wide. Quotes, approvals and settlements all happen online and by phone, wherever you are."}},{"@type":"Question","name":"What happens after I submit a quick quote?","acceptedAnswer":{"@type":"Answer","text":"We run your scenario across the panel and come back the same day with your best options and a pre-approval. If you like one, we handle the paperwork through to settlement; if not, no obligation and your credit file is untouched."}}]}</script>
 <style>
 @font-face{font-family:'Figtree';font-style:normal;font-weight:300 900;font-display:swap;src:url(/assets/fonts/figtree-var.woff2) format('woff2')}
 @font-face{font-family:'Schibsted Grotesk';font-style:normal;font-weight:400 900;font-display:swap;src:url(/assets/fonts/schibsted-grotesk-var.woff2) format('woff2')}
@@ -184,6 +185,46 @@ input[type=range]{width:100%;accent-color:var(--accent);height:30px}
 .calc-card .cta{margin-top:22px;position:relative;z-index:2}
 .calc-note{font-size:12px;color:#7286A0;margin-top:16px;line-height:1.5;position:relative;z-index:2}
 
+/* ---------- enrichment sections ---------- */
+.chips{display:flex;flex-wrap:wrap;gap:10px;max-width:860px}
+.chip{background:var(--white);border:1px solid var(--line);border-radius:99px;padding:9px 18px;font-size:14px;font-weight:600;color:var(--night)}
+.chip::before{content:"✓ ";color:var(--accent);font-weight:800}
+.mini-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;max-width:960px}
+@media(max-width:680px){.mini-grid{grid-template-columns:1fr}}
+.mini{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:22px 24px}
+.mini h3{font-family:var(--display);font-weight:700;font-size:17px;margin-bottom:6px}
+.mini p{font-size:14.5px;color:var(--ink-soft)}
+.broker-note{background:var(--accent-soft);border-radius:var(--radius);padding:26px 30px;max-width:960px;margin-top:14px;font-size:15.5px;transition:background .3s}
+.table-wrap{overflow-x:auto;max-width:860px}
+.repay-table{width:100%;border-collapse:separate;border-spacing:0;background:var(--white);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;font-variant-numeric:tabular-nums}
+.repay-table th{font-family:var(--display);font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft);text-align:right;padding:14px 20px;border-bottom:1px solid var(--line);background:var(--paper)}
+.repay-table th:first-child,.repay-table td:first-child{text-align:left}
+.repay-table td{padding:13px 20px;text-align:right;border-bottom:1px solid var(--line);font-size:15px}
+.repay-table tr:last-child td{border-bottom:none}
+.repay-table td b{font-family:var(--display);font-size:16px}
+.fine{font-size:12px;color:var(--ink-soft);margin-top:12px;max-width:860px;line-height:1.5}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:960px}
+@media(max-width:680px){.two-col{grid-template-columns:1fr}}
+.check-card{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:24px 26px}
+.check-card h3{font-family:var(--display);font-weight:700;font-size:18px;margin-bottom:12px}
+.check-card ul{list-style:none}
+.check-card li{padding:6px 0 6px 28px;position:relative;font-size:14.5px;color:var(--ink-soft)}
+.check-card li::before{content:"✓";position:absolute;left:0;top:6px;color:var(--accent);font-weight:800}
+.related-links{max-width:860px}
+.related-links a{display:block;background:var(--white);border:1px solid var(--line);border-radius:12px;padding:16px 20px;margin-bottom:10px;text-decoration:none;color:var(--night);font-size:15px;transition:transform .15s,box-shadow .2s}
+.related-links a:hover{transform:translateY(-2px);box-shadow:0 12px 24px -14px rgba(14,27,44,.3)}
+.related-links a b{color:var(--accent)}
+.why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+@media(max-width:960px){.why-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.why-grid{grid-template-columns:1fr}}
+.trust-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:34px}
+@media(max-width:960px){.trust-strip{grid-template-columns:repeat(2,1fr)}}
+.trust-strip div{background:var(--white);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.trust-strip b{display:block;font-family:var(--display);font-size:19px;margin-bottom:4px;color:var(--night)}
+.trust-strip span{font-size:13px;color:var(--ink-soft);line-height:1.45}
+.about-copy{max-width:70ch}
+.about-copy p{color:var(--ink-soft);font-size:16px;margin-bottom:14px}
+
 /* ---------- FAQ ---------- */
 .faq{max-width:820px}
 .faq details{background:var(--white);border:1px solid var(--line);border-radius:12px;margin-bottom:10px;overflow:hidden}
@@ -328,6 +369,19 @@ footer .legal a{display:inline;color:#8FA2BC;text-decoration:underline;padding:0
   </div>
 </section>
 
+<section style="padding-top:20px">
+  <div class="wrap">
+    <h2>Why go through a <span class="accent-word">broker</span>?</h2>
+    <p class="sub">Because one bank can only quote you one bank.</p>
+    <div class="why-grid">
+      <div class="mini"><h3>The panel competes. You don’t chase.</h3><p>One application puts 45+ banks, fintechs and specialist lenders head-to-head on your scenario. Lenders compete on your rate — you just pick from your best options.</p></div>
+      <div class="mini"><h3>No credit score impact to look</h3><p>The quick quote never touches your credit file. A credit check only happens once, when you proceed with the lender you chose.</p></div>
+      <div class="mini"><h3>Same-day answers</h3><p>Pre-approval typically lands the same business day. You negotiate like a cash buyer instead of waiting on a bank queue.</p></div>
+      <div class="mini"><h3>Paperwork handled to settlement</h3><p>PPSR checks, payouts, private-sale verification, lender forms — we run the whole file so you can go get the thing.</p></div>
+    </div>
+  </div>
+</section>
+
 <section class="calc-bg" id="calc">
   <div class="wrap calc-grid">
     <div>
@@ -355,6 +409,37 @@ footer .legal a{display:inline;color:#8FA2BC;text-decoration:underline;padding:0
       <div class="row"><span>Illustrative rate</span><span>8.50% p.a.</span></div>
       <a class="btn btn-accent cta" id="calcCta" href="https://readyassetfinance.afos.io/car-loans/quick-quote" target="_blank" rel="noopener">Get my real rate &rarr;</a>
       <p class="calc-note">Indicative only — not an offer of finance or a quote. Based on an illustrative rate; your rate and repayments depend on your circumstances, the asset and the lender. Fees and charges apply.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Brisbane <span class="accent-word">brokers</span>. Australia-wide reach.</h2>
+    <div class="about-copy" style="margin-top:20px">
+      <p>Ready Asset Finance is a Brisbane-based finance brokerage helping Australians finance cars, caravans, boats, bikes, business growth and commercial equipment. We’re not a lender and we’re not a comparison website — we’re licensed brokers who run your scenario across a panel of 45+ lenders and manage the deal from quick quote to settlement.</p>
+      <p>Because we’re brokers, the lenders compete for your business rather than the other way around. Banks bring sharp pricing for strong profiles; fintechs bring speed; specialist lenders say yes to the assets and situations the banks won’t. Whatever you’re ready for, the panel finds its level — with same-day pre-approval and no impact on your credit score until you choose to proceed.</p>
+    </div>
+    <div class="trust-strip">
+      <div><b>45+</b><span>lenders on the panel — banks, fintechs and specialists</span></div>
+      <div><b>ACR #546989</b><span>Authorised Credit Representative of AFAS Group Pty Ltd (ACL #414426)</span></div>
+      <div><b>AFCA member</b><span>Australian Financial Complaints Authority member #96337</span></div>
+      <div><b>Brisbane based</b><span>Australia-wide service, Mon–Fri 9:00–5:30, Sat by appointment</span></div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <h2>Straight <span class="accent-word">answers</span>.</h2>
+    <p class="sub">The questions everyone asks before their first quote.</p>
+    <div class="faq">
+<details><summary>Is Ready Asset Finance a lender?</summary><p>No — we’re a licensed finance brokerage (Authorised Credit Representative #546989 of AFAS Group Pty Ltd, Australian Credit Licence #414426). We take one application to a panel of 45+ lenders, they compete, and you choose from your best options.</p></details>
+<details><summary>Does getting a quote affect my credit score?</summary><p>No. The quick quote is assessed against the lender panel without a credit enquiry. Your file is only touched when you pick a lender and formally apply — and we flag that moment clearly.</p></details>
+<details><summary>How fast is same-day pre-approval?</summary><p>Submit a quick quote during business hours and pre-approval typically lands the same day, often within hours. Settlement usually follows 24–48 hours after your documents are in.</p></details>
+<details><summary>What can I finance through Ready Asset Finance?</summary><p>Cars, caravans, boats, motorbikes, jet skis and leisure assets, personal loans, business loans and commercial equipment — new or used, from a dealer, auction or private seller.</p></details>
+<details><summary>Do you only work with Brisbane clients?</summary><p>No — we’re Brisbane-based with clients Australia-wide. Quotes, approvals and settlements all happen online and by phone, wherever you are.</p></details>
+<details><summary>What happens after I submit a quick quote?</summary><p>We run your scenario across the panel and come back the same day with your best options and a pre-approval. If you like one, we handle the paperwork through to settlement; if not, no obligation and your credit file is untouched.</p></details>
     </div>
   </div>
 </section>

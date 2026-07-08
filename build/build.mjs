@@ -7,6 +7,7 @@ import { writeFileSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { SITE, LENDERS, CATS } from './data.mjs';
+import { EXTRA, HOME } from './content.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -177,6 +178,46 @@ input[type=range]{width:100%;accent-color:var(--accent);height:30px}
 .calc-card .row{display:flex;justify-content:space-between;font-size:14px;padding:9px 0;border-top:1px solid #24374F;color:#B9C6D8;font-variant-numeric:tabular-nums}
 .calc-card .cta{margin-top:22px;position:relative;z-index:2}
 .calc-note{font-size:12px;color:#7286A0;margin-top:16px;line-height:1.5;position:relative;z-index:2}
+
+/* ---------- enrichment sections ---------- */
+.chips{display:flex;flex-wrap:wrap;gap:10px;max-width:860px}
+.chip{background:var(--white);border:1px solid var(--line);border-radius:99px;padding:9px 18px;font-size:14px;font-weight:600;color:var(--night)}
+.chip::before{content:"✓ ";color:var(--accent);font-weight:800}
+.mini-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;max-width:960px}
+@media(max-width:680px){.mini-grid{grid-template-columns:1fr}}
+.mini{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:22px 24px}
+.mini h3{font-family:var(--display);font-weight:700;font-size:17px;margin-bottom:6px}
+.mini p{font-size:14.5px;color:var(--ink-soft)}
+.broker-note{background:var(--accent-soft);border-radius:var(--radius);padding:26px 30px;max-width:960px;margin-top:14px;font-size:15.5px;transition:background .3s}
+.table-wrap{overflow-x:auto;max-width:860px}
+.repay-table{width:100%;border-collapse:separate;border-spacing:0;background:var(--white);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;font-variant-numeric:tabular-nums}
+.repay-table th{font-family:var(--display);font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft);text-align:right;padding:14px 20px;border-bottom:1px solid var(--line);background:var(--paper)}
+.repay-table th:first-child,.repay-table td:first-child{text-align:left}
+.repay-table td{padding:13px 20px;text-align:right;border-bottom:1px solid var(--line);font-size:15px}
+.repay-table tr:last-child td{border-bottom:none}
+.repay-table td b{font-family:var(--display);font-size:16px}
+.fine{font-size:12px;color:var(--ink-soft);margin-top:12px;max-width:860px;line-height:1.5}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:960px}
+@media(max-width:680px){.two-col{grid-template-columns:1fr}}
+.check-card{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:24px 26px}
+.check-card h3{font-family:var(--display);font-weight:700;font-size:18px;margin-bottom:12px}
+.check-card ul{list-style:none}
+.check-card li{padding:6px 0 6px 28px;position:relative;font-size:14.5px;color:var(--ink-soft)}
+.check-card li::before{content:"✓";position:absolute;left:0;top:6px;color:var(--accent);font-weight:800}
+.related-links{max-width:860px}
+.related-links a{display:block;background:var(--white);border:1px solid var(--line);border-radius:12px;padding:16px 20px;margin-bottom:10px;text-decoration:none;color:var(--night);font-size:15px;transition:transform .15s,box-shadow .2s}
+.related-links a:hover{transform:translateY(-2px);box-shadow:0 12px 24px -14px rgba(14,27,44,.3)}
+.related-links a b{color:var(--accent)}
+.why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+@media(max-width:960px){.why-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.why-grid{grid-template-columns:1fr}}
+.trust-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:34px}
+@media(max-width:960px){.trust-strip{grid-template-columns:repeat(2,1fr)}}
+.trust-strip div{background:var(--white);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.trust-strip b{display:block;font-family:var(--display);font-size:19px;margin-bottom:4px;color:var(--night)}
+.trust-strip span{font-size:13px;color:var(--ink-soft);line-height:1.45}
+.about-copy{max-width:70ch}
+.about-copy p{color:var(--ink-soft);font-size:16px;margin-bottom:14px}
 
 /* ---------- FAQ ---------- */
 .faq{max-width:820px}
@@ -509,15 +550,119 @@ const ORG_SCHEMA = {
   sameAs: [SITE.socials.facebook, SITE.socials.instagram, SITE.socials.linkedin],
 };
 
-const faqSchema = cat => ({
+const faqSchema = faqs => ({
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
-  mainEntity: cat.faqs.map(f => ({
+  mainEntity: faqs.map(f => ({
     '@type': 'Question',
     name: f.q,
     acceptedAnswer: { '@type': 'Answer', text: f.a },
   })),
 });
+
+const breadcrumbSchema = cat => ({
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE.origin}/` },
+    { '@type': 'ListItem', position: 2, name: `${cat.label} finance`, item: `${SITE.origin}/${cat.path}` },
+  ],
+});
+
+const serviceSchema = cat => ({
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: `${cat.label} finance broking`,
+  serviceType: `${cat.label} finance`,
+  description: cat.meta,
+  url: `${SITE.origin}/${cat.path}`,
+  provider: { '@id': `${SITE.origin}/#organization` },
+  areaServed: { '@type': 'Country', name: 'Australia' },
+});
+
+/* ---------------------------------------------------- enrichment blocks --- */
+
+// Same maths and illustrative rate as the interactive calculator.
+const repayRow = (amount, years) => {
+  const r = 0.085 / 12, n = years * 12;
+  const m = amount * r / (1 - Math.pow(1 + r, -n));
+  const f = v => '$' + Math.round(v).toLocaleString('en-AU');
+  return { amount: f(amount), weekly: f(m * 12 / 52), monthly: f(m) };
+};
+
+function financeListSection(cat, extra) {
+  return `<section style="padding-top:0">
+  <div class="wrap">
+    <h2>What you can <span class="accent-word">finance</span>.</h2>
+    <p class="sub">If it's in this lane, the panel has a lender for it.</p>
+    <div class="chips">${extra.financeList.map(x => `<span class="chip">${x}</span>`).join('')}</div>
+  </div>
+</section>`;
+}
+
+function structuresSection(cat, extra) {
+  return `<section>
+  <div class="wrap">
+    <h2>How your ${cat.label.toLowerCase()} loan can be <span class="accent-word">shaped</span>.</h2>
+    <p class="sub">The structure moves the repayment as much as the rate does. We model the options; you pick what fits.</p>
+    <div class="mini-grid">
+      ${extra.structures.map(s => `<div class="mini"><h3>${s.h}</h3><p>${s.p}</p></div>`).join('\n      ')}
+    </div>
+    <div class="broker-note"><strong>Why go through a broker?</strong> ${extra.whyBroker}</div>
+  </div>
+</section>`;
+}
+
+function repayTableSection(cat, extra) {
+  const rows = extra.repayAmounts.map(a => {
+    const r = repayRow(a, cat.term);
+    return `<tr><td>${r.amount}</td><td>${cat.term} years</td><td><b>${r.weekly}</b>/wk</td><td>${r.monthly}/mo</td></tr>`;
+  }).join('\n        ');
+  return `<section style="padding-top:0">
+  <div class="wrap">
+    <h2>Example ${cat.label.toLowerCase()} loan <span class="accent-word">repayments</span>.</h2>
+    <p class="sub">A feel for the numbers at common amounts — then run your own in the calculator above.</p>
+    <div class="table-wrap">
+      <table class="repay-table">
+        <thead><tr><th>Amount financed</th><th>Term</th><th>Weekly</th><th>Monthly</th></tr></thead>
+        <tbody>
+        ${rows}
+        </tbody>
+      </table>
+    </div>
+    <p class="fine">Indicative only — not an offer of finance or a quote. Figures use an illustrative rate of 8.50% p.a. with no deposit; your rate and repayments depend on your circumstances, the asset and the lender. Fees and charges apply.</p>
+  </div>
+</section>`;
+}
+
+function eligibilitySection(cat, extra) {
+  return `<section style="padding-top:0">
+  <div class="wrap">
+    <h2>Ready to <span class="accent-word">apply</span>? Here's the checklist.</h2>
+    <p class="sub">Nothing exotic — most people have everything on hand.</p>
+    <div class="two-col">
+      <div class="check-card"><h3>You'll generally need to be</h3><ul>${extra.eligibility.map(x => `<li>${x}</li>`).join('')}</ul></div>
+      <div class="check-card"><h3>Have these ready</h3><ul>${extra.docs.map(x => `<li>${x}</li>`).join('')}</ul></div>
+    </div>
+  </div>
+</section>`;
+}
+
+function relatedSection(cat, extra) {
+  const items = extra.related.map(([path, text]) => {
+    const target = CATS.find(c => c.path === path);
+    const label = target.label === 'Personal' ? 'Personal loans' : target.label === 'Business' ? 'Business loans' : `${target.label} finance`;
+    return `<a href="/${path}">${text} — <b>${label} →</b></a>`;
+  }).join('\n      ');
+  return `<section style="padding-top:0">
+  <div class="wrap">
+    <h2>Not quite the right <span class="accent-word">lane</span>?</h2>
+    <div class="related-links" style="margin-top:26px">
+      ${items}
+    </div>
+  </div>
+</section>`;
+}
 
 /* --------------------------------------------------------------- pages --- */
 
@@ -535,7 +680,7 @@ function homePage() {
     title: 'Ready Asset Finance — Ready when you are | Car, Caravan, Boat & Business Finance Brisbane',
     meta: 'One quick quote, 45+ lenders compete. Car, caravan, boat, bike and business finance with same-day pre-approval and no impact on your credit score. Brisbane based, Australia wide.',
     path: 'index',
-    schema: [ORG_SCHEMA],
+    schema: [ORG_SCHEMA, faqSchema(HOME.faqs)],
   })}
 ${header_(c0.url)}
 
@@ -590,7 +735,39 @@ ${cards}
   </div>
 </section>
 
+<section style="padding-top:20px">
+  <div class="wrap">
+    <h2>Why go through a <span class="accent-word">broker</span>?</h2>
+    <p class="sub">Because one bank can only quote you one bank.</p>
+    <div class="why-grid">
+      ${HOME.whyBroker.map(w => `<div class="mini"><h3>${w.h}</h3><p>${w.p}</p></div>`).join('\n      ')}
+    </div>
+  </div>
+</section>
+
 ${calculator({ word: c0.word, url: c0.url, amt: 45000, dep: 5000, term: 5, amtMax: 250000 })}
+
+<section>
+  <div class="wrap">
+    <h2>${HOME.aboutTitle.replace('Brisbane brokers.', 'Brisbane <span class="accent-word">brokers</span>.')}</h2>
+    <div class="about-copy" style="margin-top:20px">
+      ${HOME.about.map(p => `<p>${p}</p>`).join('\n      ')}
+    </div>
+    <div class="trust-strip">
+      ${HOME.trust.map(([b, s]) => `<div><b>${b}</b><span>${s}</span></div>`).join('\n      ')}
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <h2>Straight <span class="accent-word">answers</span>.</h2>
+    <p class="sub">The questions everyone asks before their first quote.</p>
+    <div class="faq">
+${HOME.faqs.map(f => `<details><summary>${esc(f.q)}</summary><p>${f.a}</p></details>`).join('\n')}
+    </div>
+  </div>
+</section>
 
 ${callback()}
 
@@ -602,7 +779,9 @@ ${footer_('')}
 }
 
 function categoryPage(cat) {
-  const faqs = cat.faqs.map(f => `<details><summary>${esc(f.q)}</summary><p>${f.a}</p></details>`).join('\n');
+  const extra = EXTRA[cat.k];
+  const allFaqs = [...cat.faqs, ...extra.extraFaqs];
+  const faqs = allFaqs.map(f => `<details><summary>${esc(f.q)}</summary><p>${f.a}</p></details>`).join('\n');
   const amtMax = ['business', 'commercial'].includes(cat.k) ? 500000 : 250000;
   const label = cat.label === 'Personal' ? 'Personal loans' : cat.label === 'Business' ? 'Business loans' : `${cat.label} finance`;
 
@@ -612,7 +791,7 @@ function categoryPage(cat) {
     path: cat.path,
     accent: cat.c,
     soft: cat.soft,
-    schema: [ORG_SCHEMA, faqSchema(cat)],
+    schema: [ORG_SCHEMA, faqSchema(allFaqs), breadcrumbSchema(cat), serviceSchema(cat)],
   })}
 ${header_(cat.url)}
 
@@ -651,11 +830,19 @@ ${header_(cat.url)}
   </div>
 </section>
 
+${financeListSection(cat, extra)}
+
 ${marquee()}
+
+${structuresSection(cat, extra)}
 
 ${calculator({ word: cat.word, url: cat.url, amt: cat.amt, dep: cat.dep, term: cat.term, amtMax })}
 
-<section>
+${repayTableSection(cat, extra)}
+
+${eligibilitySection(cat, extra)}
+
+<section style="padding-top:0">
   <div class="wrap">
     <h2>${cat.label} finance <span class="accent-word">questions</span>, answered.</h2>
     <p class="sub">The things people ask us every week about ${label.toLowerCase()}.</p>
@@ -664,6 +851,8 @@ ${faqs}
     </div>
   </div>
 </section>
+
+${relatedSection(cat, extra)}
 
 ${callback()}
 
