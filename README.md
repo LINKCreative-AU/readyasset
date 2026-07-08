@@ -35,9 +35,11 @@ Legal page bodies live in `build/legal/*.html`.
 
 ## Setup still required (placeholders)
 
-1. **Supabase** — create a new project, run [supabase/leads.sql](supabase/leads.sql),
-   then set Vercel env vars `SUPABASE_URL` and `SUPABASE_ANON_KEY` (RLS allows
-   anon INSERT only).
+1. **Supabase** — this site uses the SHARED hosting project (one Supabase project
+   for all hosted client sites, kept separate from link-hq). If that project doesn't
+   exist yet, create it and run [supabase/leads.sql](supabase/leads.sql) once; then set
+   Vercel env vars `SUPABASE_URL` and `SUPABASE_ANON_KEY` for this site (RLS allows
+   anon INSERT only; leads carry `site = 'readyassetfinance.com.au'`).
 2. **Lead email** — set `LEAD_NOTIFY_EMAIL` (business inbox for lead alerts),
    `RESEND_API_KEY`, and `EMAIL_FROM` (verified domain in Resend). Without these,
    leads still save to Supabase; only the email is skipped.

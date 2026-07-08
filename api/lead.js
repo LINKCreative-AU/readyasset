@@ -3,8 +3,8 @@
 // an email notification via Resend. Email failure never fails the lead.
 //
 // Vercel env vars required:
-//   SUPABASE_URL        — https://<project-ref>.supabase.co   *** PLACEHOLDER — set after creating the Supabase project ***
-//   SUPABASE_ANON_KEY   — the project's anon/public key       *** PLACEHOLDER ***
+//   SUPABASE_URL        — the SHARED hosting Supabase project (one project for all hosted sites)   *** PLACEHOLDER ***
+//   SUPABASE_ANON_KEY   — that project's anon/public key                                           *** PLACEHOLDER ***
 //   RESEND_API_KEY      — Resend API key (optional; email skipped if unset)
 //   LEAD_NOTIFY_EMAIL   — inbox that receives lead alerts     *** PLACEHOLDER — James to fill with the business's preferred inbox ***
 //   EMAIL_FROM          — e.g. "Ready Asset Finance <leads@readyassetfinance.com.au>" (domain must be verified in Resend)
@@ -23,6 +23,7 @@ module.exports = async (req, res) => {
     return res.status(400).json({ error: 'name and a valid phone are required' });
   }
   const lead = {
+    site: 'readyassetfinance.com.au', // shared leads table across hosted sites
     name: cleanName,
     phone: cleanPhone,
     preferred_time: String(preferred_time || '').slice(0, 40) || null,
