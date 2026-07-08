@@ -156,7 +156,7 @@ h2{font-family:var(--display);font-weight:900;font-size:clamp(28px,3.8vw,42px);l
 .step-card p{font-size:14.5px;color:var(--ink-soft)}
 @media(max-width:760px){
   .step-row{grid-template-columns:56px 1fr;margin-bottom:26px}
-  .step-row .step-card,.step-row:nth-child(even) .step-card{grid-column:2}
+  .step-row .step-card,.step-row:nth-child(even) .step-card,.step-row:nth-child(odd) .step-card{grid-column:2}
   .step-dot{grid-column:1}
   .roadline{left:28px}
 }
@@ -515,7 +515,7 @@ function setAsset(i,manual){
   cur=i; const c=AFOS_CATS[i];
   document.documentElement.style.setProperty('--accent',c.c);
   document.documentElement.style.setProperty('--accent-soft',c.soft);
-  document.getElementById('swapWord').textContent=c.word;
+  document.getElementById('swapWord').textContent=c.word+'?';
   const cw=document.getElementById('calcWord');if(cw)cw.textContent=c.word;
   document.getElementById('chipAmt').textContent='$'+c.wk;
   document.getElementById('heroCta').href=c.url;
@@ -707,7 +707,7 @@ ${header_(c0.url)}
   <div class="wrap hero-grid">
     <div>
       <span class="kicker">One application · 45+ lenders compete</span>
-      <h1>Ready for<br>the <span class="swap" id="swapWord">car</span>?</h1>
+      <h1>Ready for<br>the <span class="swap" id="swapWord">car?</span></h1>
       <p class="lead" id="heroLead">Tell us what you're after and we'll put 45+ lenders to work on your rate — with same-day pre-approval and zero impact on your credit score.</p>
       <div class="ticks">
         <div>${tick}No credit score impact</div>
@@ -820,7 +820,7 @@ ${header_(cat.url)}
   <div class="wrap hero-grid">
     <div>
       <span class="kicker">One application · 45+ lenders compete</span>
-      <h1>Ready for<br>the <span class="swap">${cat.word}</span>?</h1>
+      <h1>Ready for<br>the <span class="swap">${cat.word}?</span></h1>
       <p class="lead">${cat.heroLead}</p>
       <div class="ticks">
         <div>${tick}No credit score impact</div>
