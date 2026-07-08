@@ -35,14 +35,19 @@ module.exports = async (req, res) => {
     return res.status(500).json({ error: 'not configured' });
   }
 
+  // Legacy anon keys are JWTs and also go in the Authorization header; the new
+  // sb_publishable_* keys must be sent as `apikey` only.
+  const key = process.env.SUPABASE_ANON_KEY;
+  const headers = {
+    'Content-Type': 'application/json',
+    apikey: key,
+    Prefer: 'return=minimal',
+  };
+  if (key.startsWith('eyJ')) headers.Authorization = `Bearer ${key}`;
+
   const r = await fetch(`${process.env.SUPABASE_URL}/rest/v1/leads`, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      apikey: process.env.SUPABASE_ANON_KEY,
-      Authorization: `Bearer ${process.env.SUPABASE_ANON_KEY}`,
-      Prefer: 'return=minimal',
-    },
+    headers,
     body: JSON.stringify(lead),
   });
   if (!r.ok) {
