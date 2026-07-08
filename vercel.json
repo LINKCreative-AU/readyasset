@@ -1,0 +1,21 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/vehicle-finance-options", "destination": "/car-finance", "permanent": true },
+    { "source": "/free-car-loan-eligibility-assessment", "destination": "/car-finance", "permanent": true },
+    { "source": "/free-assessment", "destination": "/#callback", "permanent": true },
+    { "source": "/contact-us", "destination": "/#callback", "permanent": true },
+    { "source": "/thank-you", "destination": "/", "permanent": true },
+    { "source": "/wp-content/:path*", "destination": "/", "permanent": true },
+    { "source": "/wp-admin/:path*", "destination": "/", "permanent": true }
+  ],
+  "headers": [
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    }
+  ]
+}
